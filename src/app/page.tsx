@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Music, VolumeX, Play, Pause } from 'lucide-react';
-import dynamic from 'next/dynamic';
-
-const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
+import { Heart, X, Minus, Square } from 'lucide-react';
 
 export default function Home() {
   const [timeElapsed, setTimeElapsed] = useState({
@@ -14,7 +11,6 @@ export default function Home() {
     minutes: 0,
     seconds: 0
   });
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [secretClicks, setSecretClicks] = useState(0);
   const [showSecret, setShowSecret] = useState(false);
 
@@ -47,340 +43,303 @@ export default function Home() {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
+  // Window component for retro aesthetic
+  const Window = ({ title, children, className = "", titleBarColor = "bg-pink-300" }: {
+    title: string;
+    children: React.ReactNode;
+    className?: string;
+    titleBarColor?: string;
+  }) => (
+    <div className={`bg-pink-100 border-2 border-pink-400 rounded-t-lg shadow-lg ${className}`}>
+      <div className={`${titleBarColor} px-3 py-2 flex items-center justify-between rounded-t-md border-b-2 border-pink-400`}>
+        <span className="text-sm font-bold text-pink-800" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+          {title}
+        </span>
+        <div className="flex gap-1">
+          <div className="w-4 h-4 bg-pink-500 rounded-sm flex items-center justify-center">
+            <Minus className="w-2 h-2 text-white" />
+          </div>
+          <div className="w-4 h-4 bg-purple-500 rounded-sm flex items-center justify-center">
+            <Square className="w-2 h-2 text-white" />
+          </div>
+          <div className="w-4 h-4 bg-red-500 rounded-sm flex items-center justify-center">
+            <X className="w-2 h-2 text-white" />
+          </div>
+        </div>
+      </div>
+      <div className="p-4">
+        {children}
+      </div>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50">
-      {/* Hero Section */}
-      <motion.section 
-        className="relative h-screen flex items-center justify-center overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-200/30 via-rose-200/30 to-purple-200/30"></div>
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-pink-100/30 bg-[radial-gradient(circle,_transparent_20%,_rgba(255,105,180,0.1)_21%,_rgba(255,105,180,0.1)_80%,_transparent_81%)] bg-[length:60px_60px]"></div>
+    <div className="min-h-screen bg-pink-200 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZmY5NGNkIiBvcGFjaXR5PSIwLjUiLz4KICA8cmVjdCB4PSIxMCIgeT0iMTAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iI2ZmOTRjZCIgb3BhY2l0eT0iMC41Ii8+Cjwvc3ZnPg==')] p-4">
+      
+      {/* Header Banner */}
+      <div className="text-center mb-6">
+        <div className="bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300 p-6 rounded-lg border-4 border-white shadow-xl">
+          <h1 
+            className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 mb-2"
+            style={{ fontFamily: 'Comic Sans MS, cursive' }}
+          >
+            💖 Love Bunny 💖
+          </h1>
+          <p className="text-pink-700 text-lg font-semibold" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+            ✨ Welcome to our digital love space! ✨
+          </p>
         </div>
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto">
         
-        <div className="relative text-center z-10">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-            className="mb-8"
-          >
-            <Heart 
-              className="mx-auto text-pink-500 w-16 h-16 cursor-pointer hover:text-red-500 transition-colors" 
-              fill="currentColor"
-              onClick={handleSecretClick}
-            />
-          </motion.div>
-          
-          <motion.h1 
-            className="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-purple-500 mb-4"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            style={{ fontFamily: 'Great Vibes, cursive' }}
-          >
-            For the Love of My Life
-          </motion.h1>
-          
-          <motion.p 
-            className="text-2xl text-gray-600 mb-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          >
-            💖 Every moment with you is a treasure 💖
-          </motion.p>
-
-          {/* Spotify Playlist */}
-          <motion.div 
-            className="flex items-center justify-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.5, duration: 0.6 }}
-          >
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-2xl">
-              <iframe 
-                style={{ borderRadius: '12px' }} 
-                src="https://open.spotify.com/embed/playlist/53nilY55SJ5exHRFhs6CwN?utm_source=generator" 
-                width="350" 
-                height="200" 
-                frameBorder="0" 
-                allowFullScreen 
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                loading="lazy"
-                className="shadow-lg"
-              />
+        {/* Left Sidebar */}
+        <div className="space-y-4">
+          {/* Navigation Window */}
+          <Window title="💕 Navigation" titleBarColor="bg-purple-300">
+            <div className="space-y-2 text-sm">
+              <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">💖 Love Gallery</div>
+              <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">🎵 Our Songs</div>
+              <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">📝 Love Notes</div>
+              <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">🎥 Memories</div>
+              <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">💌 About Us</div>
             </div>
-          </motion.div>
+          </Window>
+
+          {/* Love Counter Window */}
+          <Window title="⏰ Love Counter" titleBarColor="bg-blue-300">
+            <div className="text-center">
+              <div className="text-pink-600 font-bold mb-2" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+                Together Since Jan 1, 2025!
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="bg-pink-200 p-2 rounded">
+                  <div className="font-bold text-pink-700">{timeElapsed.days}</div>
+                  <div className="text-pink-600">Days</div>
+                </div>
+                <div className="bg-purple-200 p-2 rounded">
+                  <div className="font-bold text-purple-700">{timeElapsed.hours}</div>
+                  <div className="text-purple-600">Hours</div>
+                </div>
+                <div className="bg-blue-200 p-2 rounded">
+                  <div className="font-bold text-blue-700">{timeElapsed.minutes}</div>
+                  <div className="text-blue-600">Minutes</div>
+                </div>
+                <div className="bg-green-200 p-2 rounded">
+                  <div className="font-bold text-green-700">{timeElapsed.seconds}</div>
+                  <div className="text-green-600">Seconds</div>
+                </div>
+              </div>
+            </div>
+          </Window>
+
+          {/* Cliques Window */}
+          <Window title="💕 Cliques" titleBarColor="bg-green-300">
+            <div className="text-center space-y-2">
+              <div className="text-6xl">🥰</div>
+              <div className="text-xs text-pink-700 font-bold">
+                Click me for surprises!
+              </div>
+              <div className="flex justify-center space-x-1">
+                {['💖', '🌟', '✨', '💫', '🎀'].map((emoji, i) => (
+                  <span key={i} className="text-sm hover:scale-125 transition-transform cursor-pointer">
+                    {emoji}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Window>
         </div>
 
-        {/* Floating Hearts Animation */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-pink-400 text-2xl"
-            style={{
-              left: `${10 + i * 15}%`,
-              top: `${20 + (i % 3) * 20}%`,
-            }}
-            animate={{
-              y: [-20, -40, -20],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 3 + i * 0.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            💖
-          </motion.div>
-        ))}
-      </motion.section>
-
-      {/* Love Counter Section */}
-      <motion.section 
-        className="py-20 px-4"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <motion.div variants={itemVariants} className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-800 mb-12" style={{ fontFamily: 'Satisfy, cursive' }}>
-            Our Love Story Counter ⏳
-          </h2>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { label: 'Days', value: timeElapsed.days, icon: '📅' },
-              { label: 'Hours', value: timeElapsed.hours, icon: '⏰' },
-              { label: 'Minutes', value: timeElapsed.minutes, icon: '⏱️' },
-              { label: 'Seconds', value: timeElapsed.seconds, icon: '⚡' }
-            ].map((item, index) => (
-              <motion.div
-                key={item.label}
-                className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-pink-100"
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <div className="text-4xl md:text-5xl font-bold text-pink-500 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  {item.value}
+        {/* Main Content Area */}
+        <div className="space-y-4">
+          {/* Welcome Window */}
+          <Window title="💌 Welcome" titleBarColor="bg-pink-400">
+            <div className="text-center">
+              <div className="text-pink-700 font-bold mb-3" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+                WELCOME TO OUR LOVE SITE! 💖
+              </div>
+              <div className="text-sm text-pink-600 leading-relaxed mb-4">
+                Hello there, and welcome to our special corner of the internet! 
+                I made this site because I wanted somewhere cute to share our 
+                love story without the hassle of social media. You'll find 
+                many adorable things here dedicated to our beautiful relationship! ✨
+              </div>
+              <div className="flex justify-center mb-3">
+                <div className="w-20 h-20 bg-gradient-to-br from-pink-300 to-purple-300 rounded-full flex items-center justify-center text-3xl">
+                  💑
                 </div>
-                <div className="text-gray-600 font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>{item.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </motion.section>
+              </div>
+              <div className="text-xs text-pink-600">
+                This site is made with love and is best viewed with happiness! 
+                Sorry if anything breaks, I'm still learning! (◕‿◕)♡
+              </div>
+            </div>
+          </Window>
 
-      {/* Gallery Section */}
-      <motion.section 
-        className="py-20 px-4 bg-gradient-to-r from-pink-100/50 to-purple-100/50"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <motion.div variants={itemVariants} className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-800 mb-12" style={{ fontFamily: 'Satisfy, cursive' }}>
-            Our Beautiful Memories 📸
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3, 4, 5, 6].map((index) => (
-              <motion.div
-                key={index}
-                className="relative group cursor-pointer"
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
+          {/* Spotify Playlist Window */}
+          <Window title="🎵 Our Love Playlist" titleBarColor="bg-green-400">
+            <div className="text-center">
+              <div className="bg-white/50 backdrop-blur-sm rounded-lg p-2">
+                <iframe 
+                  style={{ borderRadius: '8px' }} 
+                  src="https://open.spotify.com/embed/playlist/53nilY55SJ5exHRFhs6CwN?utm_source=generator" 
+                  width="100%" 
+                  height="180" 
+                  frameBorder="0" 
+                  allowFullScreen 
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                  loading="lazy"
+                />
+              </div>
+              <div className="text-xs text-green-700 mt-2 font-bold">
+                🎶 Songs that remind me of you! 🎶
+              </div>
+            </div>
+          </Window>
+
+          {/* Love Note Window */}
+          <Window title="💌 Love Note" titleBarColor="bg-purple-400">
+            <div className="text-center">
+              <div className="text-sm text-purple-700 leading-relaxed mb-3" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+                "Every sunrise with you feels like the first day of forever. 💕 
+                Your smile lights up my world, your laugh is my favorite song, 
+                and your love is my greatest treasure. Thank you for being 
+                the most beautiful part of my story! 🌟"
+              </div>
+              <div className="text-right text-purple-600 text-xs font-bold">
+                - Forever Yours 💖
+              </div>
+              <div className="flex justify-center mt-3 space-x-2">
+                {['💕', '🌹', '✨', '💖', '🌟'].map((emoji, i) => (
+                  <motion.span
+                    key={i}
+                    className="text-lg"
+                    animate={{
+                      y: [0, -5, 0],
+                      rotate: [0, 10, -10, 0],
+                    }}
+                    transition={{
+                      duration: 2 + i * 0.3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    {emoji}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          </Window>
+        </div>
+
+        {/* Right Sidebar */}
+        <div className="space-y-4">
+          {/* Updates Window */}
+          <Window title="📝 Updates" titleBarColor="bg-yellow-300">
+            <div className="space-y-3 text-xs">
+              <div className="border-b border-pink-300 pb-2">
+                <div className="text-pink-700 font-bold">[06/11/25] 💖 Site created!</div>
+                <div className="text-pink-600">Finally made our love site with Spotify playlist!</div>
+              </div>
+              <div className="border-b border-pink-300 pb-2">
+                <div className="text-purple-700 font-bold">[06/09/25] 🎵 New songs added!</div>
+                <div className="text-purple-600">Added 7 new love songs to our playlist!</div>
+              </div>
+              <div>
+                <div className="text-blue-700 font-bold">[05/23/25] 💕 Anniversary!</div>
+                <div className="text-blue-600">Celebrating another beautiful month together!</div>
+              </div>
+            </div>
+          </Window>
+
+          {/* Buttons Window */}
+          <Window title="🌟 Buttons" titleBarColor="bg-orange-300">
+            <div className="grid grid-cols-2 gap-2">
+              <button 
+                onClick={handleSecretClick}
+                className="bg-pink-300 hover:bg-pink-400 text-pink-800 text-xs font-bold py-2 px-1 rounded border-2 border-pink-400"
               >
-                <div className="aspect-square bg-gradient-to-br from-pink-200 to-purple-200 rounded-3xl shadow-xl flex items-center justify-center text-6xl">
+                💖 Secret
+              </button>
+              <button className="bg-purple-300 hover:bg-purple-400 text-purple-800 text-xs font-bold py-2 px-1 rounded border-2 border-purple-400">
+                🌟 Magic
+              </button>
+              <button className="bg-blue-300 hover:bg-blue-400 text-blue-800 text-xs font-bold py-2 px-1 rounded border-2 border-blue-400">
+                ✨ Dreams
+              </button>
+              <button className="bg-green-300 hover:bg-green-400 text-green-800 text-xs font-bold py-2 px-1 rounded border-2 border-green-400">
+                💕 Love
+              </button>
+            </div>
+            <div className="text-xs text-center mt-3 text-gray-600">
+              Let me know if you use one so I can return the favor! 🥰
+            </div>
+          </Window>
+
+          {/* Photo Gallery Window */}
+          <Window title="📸 Memories" titleBarColor="bg-red-300">
+            <div className="grid grid-cols-2 gap-2">
+              {[1, 2, 3, 4].map((index) => (
+                <div
+                  key={index}
+                  className="aspect-square bg-gradient-to-br from-pink-200 to-purple-200 rounded border-2 border-pink-300 flex items-center justify-center text-2xl hover:scale-105 transition-transform cursor-pointer"
+                >
                   {index === 1 && '💑'}
                   {index === 2 && '🥰'}
                   {index === 3 && '💕'}
                   {index === 4 && '🌹'}
-                  {index === 5 && '💐'}
-                  {index === 6 && '🎉'}
                 </div>
-                <div className="absolute inset-0 bg-pink-500/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <p className="text-white font-semibold text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>Memory #{index}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+              ))}
+            </div>
+            <div className="text-xs text-center mt-2 text-red-700 font-bold">
+              Our favorite moments together! 📷✨
+            </div>
+          </Window>
+
+          {/* Webrings Window */}
+          <Window title="🌐 Webrings" titleBarColor="bg-teal-300">
+            <div className="text-center space-y-2">
+              <div className="bg-gradient-to-r from-pink-200 to-purple-200 p-2 rounded border">
+                <div className="text-xs font-bold text-teal-700">💖 Love Ring 💖</div>
+              </div>
+              <div className="bg-gradient-to-r from-blue-200 to-green-200 p-2 rounded border">
+                <div className="text-xs font-bold text-teal-700">🎵 Music Lovers 🎵</div>
+              </div>
+              <div className="text-xs text-teal-600">
+                Join our webrings! 🌟
+              </div>
+            </div>
+          </Window>
+        </div>
+      </div>
+
+      {/* Floating Elements */}
+      {[...Array(8)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="fixed text-pink-400 text-lg pointer-events-none z-0"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            y: [0, -20, 0],
+            x: [0, 10, 0],
+            opacity: [0.3, 0.7, 0.3],
+          }}
+          transition={{
+            duration: 3 + i * 0.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          {['💖', '✨', '🌟', '💕', '🎀', '🌹', '💫', '🦋'][i]}
         </motion.div>
-      </motion.section>
+      ))}
 
-      {/* Love GIFs Section */}
-      <motion.section 
-        className="py-20 px-4 relative overflow-hidden"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <motion.div variants={itemVariants} className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-800 mb-12" style={{ fontFamily: 'Satisfy, cursive' }}>
-            Love is in the Air 💞
-          </h2>
-          
-          <div className="flex flex-wrap justify-center gap-12">
-            {[
-              { emoji: '💖', size: 'text-6xl' },
-              { emoji: '🌟', size: 'text-5xl' },
-              { emoji: '✨', size: 'text-4xl' },
-              { emoji: '💫', size: 'text-7xl' },
-              { emoji: '🎀', size: 'text-5xl' },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                className={`${item.size} cursor-pointer`}
-                animate={{
-                  y: [0, -20, 0],
-                  rotate: [0, 10, -10, 0],
-                }}
-                transition={{
-                  duration: 2 + index * 0.3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                whileHover={{ scale: 1.3 }}
-              >
-                {item.emoji}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Floating background elements */}
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-pink-300 text-xl opacity-30"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              x: [0, 30, 0],
-              y: [0, -30, 0],
-              opacity: [0.1, 0.3, 0.1],
-            }}
-            transition={{
-              duration: 4 + i * 0.2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            💕
-          </motion.div>
-        ))}
-      </motion.section>
-
-      {/* Love Note Section */}
-      <motion.section 
-        className="py-20 px-4 bg-gradient-to-r from-rose-100/50 to-pink-100/50"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <motion.div variants={itemVariants} className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-800 mb-12" style={{ fontFamily: 'Satisfy, cursive' }}>
-            A Note From My Heart ✍️
-          </h2>
-          
-          <motion.div 
-            className="bg-white/90 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-pink-200"
-            variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <motion.p 
-              className="text-2xl md:text-3xl leading-relaxed text-gray-700 mb-8"
-              style={{ fontFamily: 'Playfair Display, serif' }}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 2, delay: 0.5 }}
-            >
-              "Every sunrise with you feels like the first day of forever. 
-              Your smile lights up my world, your laugh is my favorite song, 
-              and your love is my greatest treasure. Thank you for being 
-              the most beautiful part of my story. I love you more than 
-              words could ever express. 💕"
-            </motion.p>
-            
-            <motion.div 
-              className="text-right text-pink-500 font-semibold text-xl"
-              style={{ fontFamily: 'Great Vibes, cursive' }}
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 1 }}
-            >
-              - Forever Yours 💖
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      </motion.section>
-
-      {/* Video Section */}
-      <motion.section 
-        className="py-20 px-4"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <motion.div variants={itemVariants} className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-800 mb-12" style={{ fontFamily: 'Satisfy, cursive' }}>
-            Our Love Story Video 🎥
-          </h2>
-          
-          <motion.div 
-            className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-pink-200 to-purple-200 aspect-video flex items-center justify-center"
-            variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="text-6xl">🎬</div>
-            <p className="absolute bottom-8 left-8 right-8 text-white text-xl font-semibold bg-black/50 rounded-full px-6 py-3" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Add your special video here 💕
-            </p>
-          </motion.div>
-        </motion.div>
-      </motion.section>
-
-      {/* Secret Message */}
+      {/* Secret Message Modal */}
       {showSecret && (
         <motion.div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
@@ -388,41 +347,25 @@ export default function Home() {
           animate={{ opacity: 1 }}
           onClick={() => setShowSecret(false)}
         >
-          <motion.div
-            className="bg-white rounded-3xl p-12 max-w-md mx-4 text-center shadow-2xl"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="text-6xl mb-6">🎉</div>
-            <h3 className="text-3xl font-bold text-pink-500 mb-4" style={{ fontFamily: 'Great Vibes, cursive' }}>
-              Secret Message Unlocked!
-            </h3>
-            <p className="text-gray-700 text-lg leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
-              You found the secret! Just like how you found your way into my heart, 
-              you discovered this hidden message. You are my greatest adventure! 💖
-            </p>
-            <button
-              onClick={() => setShowSecret(false)}
-              className="mt-6 bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full transition-colors"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              Close 💕
-            </button>
-          </motion.div>
+          <Window title="🎉 Secret Unlocked!" titleBarColor="bg-yellow-400" className="max-w-md mx-4">
+            <div className="text-center">
+              <div className="text-4xl mb-4">🎉</div>
+              <div className="text-yellow-700 font-bold mb-3" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+                You found the secret! 
+              </div>
+              <div className="text-sm text-yellow-600 leading-relaxed">
+                Just like how you found your way into my heart, 
+                you discovered this hidden message. You are my greatest adventure! 💖
+              </div>
+              <button
+                onClick={() => setShowSecret(false)}
+                className="mt-4 bg-yellow-400 hover:bg-yellow-500 text-yellow-800 px-4 py-2 rounded font-bold text-sm"
+              >
+                Close 💕
+              </button>
+            </div>
+          </Window>
         </motion.div>
-      )}
-
-      {/* Hidden Audio Element */}
-      {isMusicPlaying && (
-        <audio
-          autoPlay
-          loop
-          className="hidden"
-          onError={() => setIsMusicPlaying(false)}
-        >
-          <source src="/love-song.mp3" type="audio/mpeg" />
-        </audio>
       )}
     </div>
   );
