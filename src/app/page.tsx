@@ -1,8 +1,256 @@
 'use client';
 
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Heart, X, Minus, Square } from 'lucide-react';
+
+// Window component outside main component to prevent re-renders
+const Window = memo(({ title, children, className = "", titleBarColor = "bg-pink-300", dragConstraints = true }: {
+  title: string;
+  children: React.ReactNode;
+  className?: string;
+  titleBarColor?: string;
+  dragConstraints?: boolean;
+}) => (
+  <motion.div 
+    className={`bg-pink-100 border-2 border-pink-400 rounded-t-lg shadow-lg ${className}`}
+    drag={dragConstraints}
+    dragMomentum={false}
+    dragElastic={0.1}
+    whileDrag={{ scale: 1.02, zIndex: 50 }}
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.3 }}
+  >
+    <div 
+      className={`${titleBarColor} px-3 py-2 flex items-center justify-between rounded-t-md border-b-2 border-pink-400 cursor-move`}
+    >
+      <span className="text-sm font-bold text-pink-800" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+        {title}
+      </span>
+      <div className="flex gap-1">
+        <div className="w-4 h-4 bg-pink-500 rounded-sm flex items-center justify-center hover:bg-pink-600 transition-colors">
+          <Minus className="w-2 h-2 text-white" />
+        </div>
+        <div className="w-4 h-4 bg-purple-500 rounded-sm flex items-center justify-center hover:bg-purple-600 transition-colors">
+          <Square className="w-2 h-2 text-white" />
+        </div>
+        <div className="w-4 h-4 bg-red-500 rounded-sm flex items-center justify-center hover:bg-red-600 transition-colors">
+          <X className="w-2 h-2 text-white" />
+        </div>
+      </div>
+    </div>
+    <div className="p-4">
+      {children}
+    </div>
+  </motion.div>
+));
+
+// Stable Spotify component
+const SpotifyPlayer = memo(() => (
+  <div className="bg-white/50 backdrop-blur-sm rounded-lg p-2">
+    <iframe 
+      style={{ borderRadius: '8px' }} 
+      src="https://open.spotify.com/embed/playlist/53nilY55SJ5exHRFhs6CwN?utm_source=generator&theme=0" 
+      width="100%" 
+      height="180" 
+      frameBorder="0" 
+      allowFullScreen 
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+      loading="lazy"
+      title="Love Playlist"
+    />
+  </div>
+));
+
+// Love Counter component isolated to prevent other components from re-rendering
+const LoveCounter = memo(({ timeElapsed }: {
+  timeElapsed: { days: number; hours: number; minutes: number; seconds: number }
+}) => (
+  <div className="text-center">
+    <div className="text-pink-600 font-bold mb-2" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+      Together Since Jan 1, 2025!
+    </div>
+    <div className="grid grid-cols-2 gap-2 text-xs">
+      <div className="bg-pink-200 p-2 rounded">
+        <div className="font-bold text-pink-700">{timeElapsed.days}</div>
+        <div className="text-pink-600">Days</div>
+      </div>
+      <div className="bg-purple-200 p-2 rounded">
+        <div className="font-bold text-purple-700">{timeElapsed.hours}</div>
+        <div className="text-purple-600">Hours</div>
+      </div>
+      <div className="bg-blue-200 p-2 rounded">
+        <div className="font-bold text-blue-700">{timeElapsed.minutes}</div>
+        <div className="text-blue-600">Minutes</div>
+      </div>
+      <div className="bg-green-200 p-2 rounded">
+        <div className="font-bold text-green-700">{timeElapsed.seconds}</div>
+        <div className="text-green-600">Seconds</div>
+      </div>
+    </div>
+  </div>
+));
+
+// Static components that don't need to re-render
+const NavigationContent = memo(() => (
+  <div className="space-y-2 text-sm">
+    <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">💖 Love Gallery</div>
+    <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">🎵 Our Songs</div>
+    <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">📝 Love Notes</div>
+    <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">🎥 Memories</div>
+    <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">💌 About Us</div>
+  </div>
+));
+
+const CliquesContent = memo(() => (
+  <div className="text-center space-y-2">
+    <div className="text-6xl">🥰</div>
+    <div className="text-xs text-pink-700 font-bold">
+      Click me for surprises!
+    </div>
+    <div className="flex justify-center space-x-1">
+      {['💖', '🌟', '✨', '💫', '🎀'].map((emoji, i) => (
+        <span key={i} className="text-sm hover:scale-125 transition-transform cursor-pointer">
+          {emoji}
+        </span>
+      ))}
+    </div>
+  </div>
+));
+
+const WelcomeContent = memo(() => (
+  <div className="text-center">
+    <div className="text-pink-700 font-bold mb-3" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+      WELCOME TO OUR LOVE SITE! 💖
+    </div>
+    <div className="text-sm text-pink-600 leading-relaxed mb-4">
+      Hello there, and welcome to our special corner of the internet! 
+      I made this site because I wanted somewhere cute to share our 
+      love story without the hassle of social media. You'll find 
+      many adorable things here dedicated to our beautiful relationship! ✨
+    </div>
+    <div className="flex justify-center mb-3">
+      <div className="w-20 h-20 bg-gradient-to-br from-pink-300 to-purple-300 rounded-full flex items-center justify-center text-3xl">
+        💑
+      </div>
+    </div>
+    <div className="text-xs text-pink-600">
+      This site is made with love and is best viewed with happiness! 
+      Sorry if anything breaks, I'm still learning! (◕‿◕)♡
+    </div>
+  </div>
+));
+
+const UpdatesContent = memo(() => (
+  <div className="space-y-3 text-xs">
+    <div className="border-b border-pink-300 pb-2">
+      <div className="text-pink-700 font-bold">[06/11/25] 💖 Site created!</div>
+      <div className="text-pink-600">Finally made our love site with Spotify playlist!</div>
+    </div>
+    <div className="border-b border-pink-300 pb-2">
+      <div className="text-purple-700 font-bold">[06/09/25] 🎵 New songs added!</div>
+      <div className="text-purple-600">Added 7 new love songs to our playlist!</div>
+    </div>
+    <div>
+      <div className="text-blue-700 font-bold">[05/23/25] 💕 Anniversary!</div>
+      <div className="text-blue-600">Celebrating another beautiful month together!</div>
+    </div>
+  </div>
+));
+
+const MemoriesContent = memo(() => (
+  <>
+    <div className="grid grid-cols-2 gap-2">
+      {[1, 2, 3, 4].map((index) => (
+        <div
+          key={index}
+          className="aspect-square bg-gradient-to-br from-pink-200 to-purple-200 rounded border-2 border-pink-300 flex items-center justify-center text-2xl hover:scale-105 transition-transform cursor-pointer"
+        >
+          {index === 1 && '💑'}
+          {index === 2 && '🥰'}
+          {index === 3 && '💕'}
+          {index === 4 && '🌹'}
+        </div>
+      ))}
+    </div>
+    <div className="text-xs text-center mt-2 text-red-700 font-bold">
+      Our favorite moments together! 📷✨
+    </div>
+  </>
+));
+
+const WebringsContent = memo(() => (
+  <div className="text-center space-y-2">
+    <div className="bg-gradient-to-r from-pink-200 to-purple-200 p-2 rounded border">
+      <div className="text-xs font-bold text-teal-700">💖 Love Ring 💖</div>
+    </div>
+    <div className="bg-gradient-to-r from-blue-200 to-green-200 p-2 rounded border">
+      <div className="text-xs font-bold text-teal-700">🎵 Music Lovers 🎵</div>
+    </div>
+    <div className="text-xs text-teal-600">
+      Join our webrings! 🌟
+    </div>
+  </div>
+));
+
+const ButtonsContent = memo(({ onSecretClick }: { onSecretClick: () => void }) => (
+  <>
+    <div className="grid grid-cols-2 gap-2">
+      <button 
+        onClick={onSecretClick}
+        className="bg-pink-300 hover:bg-pink-400 text-pink-800 text-xs font-bold py-2 px-1 rounded border-2 border-pink-400"
+      >
+        💖 Secret
+      </button>
+      <button className="bg-purple-300 hover:bg-purple-400 text-purple-800 text-xs font-bold py-2 px-1 rounded border-2 border-purple-400">
+        🌟 Magic
+      </button>
+      <button className="bg-blue-300 hover:bg-blue-400 text-blue-800 text-xs font-bold py-2 px-1 rounded border-2 border-blue-400">
+        ✨ Dreams
+      </button>
+      <button className="bg-green-300 hover:bg-green-400 text-green-800 text-xs font-bold py-2 px-1 rounded border-2 border-green-400">
+        💕 Love
+      </button>
+    </div>
+    <div className="text-xs text-center mt-3 text-gray-600">
+      Let me know if you use one so I can return the favor! 🥰
+    </div>
+  </>
+));
+
+const LoveNoteContent = memo(() => (
+  <div className="text-center">
+    <div className="text-sm text-purple-700 leading-relaxed mb-3" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+      "Every sunrise with you feels like the first day of forever. 💕 
+      Your smile lights up my world, your laugh is my favorite song, 
+      and your love is my greatest treasure. Thank you for being 
+      the most beautiful part of my story! 🌟"
+    </div>
+    <div className="text-right text-purple-600 text-xs font-bold">
+      - Forever Yours 💖
+    </div>
+    <div className="flex justify-center mt-3 space-x-2">
+      {['💕', '🌹', '✨', '💖', '🌟'].map((emoji, i) => (
+        <motion.span
+          key={i}
+          className="text-lg"
+          animate={{
+            y: [0, -5, 0],
+            rotate: [0, 10, -10, 0],
+          }}
+          transition={{
+            duration: 2 + i * 0.3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          {emoji}
+        </motion.span>
+      ))}
+    </div>
+  </div>
+));
 
 export default function Home() {
   const [timeElapsed, setTimeElapsed] = useState({
@@ -13,23 +261,6 @@ export default function Home() {
   });
   const [secretClicks, setSecretClicks] = useState(0);
   const [showSecret, setShowSecret] = useState(false);
-
-  // Stable Spotify component to prevent re-renders
-  const SpotifyPlayer = memo(() => (
-    <div className="bg-white/50 backdrop-blur-sm rounded-lg p-2">
-      <iframe 
-        style={{ borderRadius: '8px' }} 
-        src="https://open.spotify.com/embed/playlist/53nilY55SJ5exHRFhs6CwN?utm_source=generator&theme=0" 
-        width="100%" 
-        height="180" 
-        frameBorder="0" 
-        allowFullScreen 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy"
-        title="Love Playlist"
-      />
-    </div>
-  ));
 
   // Calculate time since Jan 1, 2025
   useEffect(() => {
@@ -52,55 +283,15 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSecretClick = () => {
-    const newClicks = secretClicks + 1;
-    setSecretClicks(newClicks);
-    if (newClicks >= 3) {
-      setShowSecret(true);
-    }
-  };
-
-  // Window component for retro aesthetic with drag functionality
-  const Window = ({ title, children, className = "", titleBarColor = "bg-pink-300", dragConstraints = true }: {
-    title: string;
-    children: React.ReactNode;
-    className?: string;
-    titleBarColor?: string;
-    dragConstraints?: boolean;
-  }) => (
-    <motion.div 
-      className={`bg-pink-100 border-2 border-pink-400 rounded-t-lg shadow-lg ${className}`}
-      drag={dragConstraints}
-      dragMomentum={false}
-      dragElastic={0.1}
-      whileDrag={{ scale: 1.02, zIndex: 50 }}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
-    >
-      <div 
-        className={`${titleBarColor} px-3 py-2 flex items-center justify-between rounded-t-md border-b-2 border-pink-400 cursor-move`}
-      >
-        <span className="text-sm font-bold text-pink-800" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-          {title}
-        </span>
-        <div className="flex gap-1">
-          <div className="w-4 h-4 bg-pink-500 rounded-sm flex items-center justify-center hover:bg-pink-600 transition-colors">
-            <Minus className="w-2 h-2 text-white" />
-          </div>
-          <div className="w-4 h-4 bg-purple-500 rounded-sm flex items-center justify-center hover:bg-purple-600 transition-colors">
-            <Square className="w-2 h-2 text-white" />
-          </div>
-          <div className="w-4 h-4 bg-red-500 rounded-sm flex items-center justify-center hover:bg-red-600 transition-colors">
-            <X className="w-2 h-2 text-white" />
-          </div>
-        </div>
-      </div>
-      <div className="p-4">
-        {children}
-      </div>
-    </motion.div>
-  );
+  const handleSecretClick = useCallback(() => {
+    setSecretClicks(prev => {
+      const newClicks = prev + 1;
+      if (newClicks >= 3) {
+        setShowSecret(true);
+      }
+      return newClicks;
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-pink-200 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZmY5NGNkIiBvcGFjaXR5PSIwLjUiLz4KICA8cmVjdCB4PSIxMCIgeT0iMTAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iI2ZmOTRjZCIgb3BhY2l0eT0iMC41Ii8+Cjwvc3ZnPg==')] p-4">
@@ -127,57 +318,17 @@ export default function Home() {
         <div className="space-y-4">
           {/* Navigation Window */}
           <Window title="💕 Navigation" titleBarColor="bg-purple-300">
-            <div className="space-y-2 text-sm">
-              <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">💖 Love Gallery</div>
-              <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">🎵 Our Songs</div>
-              <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">📝 Love Notes</div>
-              <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">🎥 Memories</div>
-              <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">💌 About Us</div>
-            </div>
+            <NavigationContent />
           </Window>
 
           {/* Love Counter Window */}
           <Window title="⏰ Love Counter" titleBarColor="bg-blue-300">
-            <div className="text-center">
-              <div className="text-pink-600 font-bold mb-2" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-                Together Since Jan 1, 2025!
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="bg-pink-200 p-2 rounded">
-                  <div className="font-bold text-pink-700">{timeElapsed.days}</div>
-                  <div className="text-pink-600">Days</div>
-                </div>
-                <div className="bg-purple-200 p-2 rounded">
-                  <div className="font-bold text-purple-700">{timeElapsed.hours}</div>
-                  <div className="text-purple-600">Hours</div>
-                </div>
-                <div className="bg-blue-200 p-2 rounded">
-                  <div className="font-bold text-blue-700">{timeElapsed.minutes}</div>
-                  <div className="text-blue-600">Minutes</div>
-                </div>
-                <div className="bg-green-200 p-2 rounded">
-                  <div className="font-bold text-green-700">{timeElapsed.seconds}</div>
-                  <div className="text-green-600">Seconds</div>
-                </div>
-              </div>
-            </div>
+            <LoveCounter timeElapsed={timeElapsed} />
           </Window>
 
           {/* Cliques Window */}
           <Window title="💕 Cliques" titleBarColor="bg-green-300">
-            <div className="text-center space-y-2">
-              <div className="text-6xl">🥰</div>
-              <div className="text-xs text-pink-700 font-bold">
-                Click me for surprises!
-              </div>
-              <div className="flex justify-center space-x-1">
-                {['💖', '🌟', '✨', '💫', '🎀'].map((emoji, i) => (
-                  <span key={i} className="text-sm hover:scale-125 transition-transform cursor-pointer">
-                    {emoji}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <CliquesContent />
           </Window>
         </div>
 
@@ -185,26 +336,7 @@ export default function Home() {
         <div className="space-y-4">
           {/* Welcome Window */}
           <Window title="💌 Welcome" titleBarColor="bg-pink-400">
-            <div className="text-center">
-              <div className="text-pink-700 font-bold mb-3" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-                WELCOME TO OUR LOVE SITE! 💖
-              </div>
-              <div className="text-sm text-pink-600 leading-relaxed mb-4">
-                Hello there, and welcome to our special corner of the internet! 
-                I made this site because I wanted somewhere cute to share our 
-                love story without the hassle of social media. You'll find 
-                many adorable things here dedicated to our beautiful relationship! ✨
-              </div>
-              <div className="flex justify-center mb-3">
-                <div className="w-20 h-20 bg-gradient-to-br from-pink-300 to-purple-300 rounded-full flex items-center justify-center text-3xl">
-                  💑
-                </div>
-              </div>
-              <div className="text-xs text-pink-600">
-                This site is made with love and is best viewed with happiness! 
-                Sorry if anything breaks, I'm still learning! (◕‿◕)♡
-              </div>
-            </div>
+            <WelcomeContent />
           </Window>
 
           {/* Spotify Playlist Window */}
@@ -219,36 +351,7 @@ export default function Home() {
 
           {/* Love Note Window */}
           <Window title="💌 Love Note" titleBarColor="bg-purple-400">
-            <div className="text-center">
-              <div className="text-sm text-purple-700 leading-relaxed mb-3" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-                "Every sunrise with you feels like the first day of forever. 💕 
-                Your smile lights up my world, your laugh is my favorite song, 
-                and your love is my greatest treasure. Thank you for being 
-                the most beautiful part of my story! 🌟"
-              </div>
-              <div className="text-right text-purple-600 text-xs font-bold">
-                - Forever Yours 💖
-              </div>
-              <div className="flex justify-center mt-3 space-x-2">
-                {['💕', '🌹', '✨', '💖', '🌟'].map((emoji, i) => (
-                  <motion.span
-                    key={i}
-                    className="text-lg"
-                    animate={{
-                      y: [0, -5, 0],
-                      rotate: [0, 10, -10, 0],
-                    }}
-                    transition={{
-                      duration: 2 + i * 0.3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    {emoji}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
+            <LoveNoteContent />
           </Window>
         </div>
 
@@ -256,79 +359,22 @@ export default function Home() {
         <div className="space-y-4">
           {/* Updates Window */}
           <Window title="📝 Updates" titleBarColor="bg-yellow-300">
-            <div className="space-y-3 text-xs">
-              <div className="border-b border-pink-300 pb-2">
-                <div className="text-pink-700 font-bold">[06/11/25] 💖 Site created!</div>
-                <div className="text-pink-600">Finally made our love site with Spotify playlist!</div>
-              </div>
-              <div className="border-b border-pink-300 pb-2">
-                <div className="text-purple-700 font-bold">[06/09/25] 🎵 New songs added!</div>
-                <div className="text-purple-600">Added 7 new love songs to our playlist!</div>
-              </div>
-              <div>
-                <div className="text-blue-700 font-bold">[05/23/25] 💕 Anniversary!</div>
-                <div className="text-blue-600">Celebrating another beautiful month together!</div>
-              </div>
-            </div>
+            <UpdatesContent />
           </Window>
 
           {/* Buttons Window */}
           <Window title="🌟 Buttons" titleBarColor="bg-orange-300">
-            <div className="grid grid-cols-2 gap-2">
-              <button 
-                onClick={handleSecretClick}
-                className="bg-pink-300 hover:bg-pink-400 text-pink-800 text-xs font-bold py-2 px-1 rounded border-2 border-pink-400"
-              >
-                💖 Secret
-              </button>
-              <button className="bg-purple-300 hover:bg-purple-400 text-purple-800 text-xs font-bold py-2 px-1 rounded border-2 border-purple-400">
-                🌟 Magic
-              </button>
-              <button className="bg-blue-300 hover:bg-blue-400 text-blue-800 text-xs font-bold py-2 px-1 rounded border-2 border-blue-400">
-                ✨ Dreams
-              </button>
-              <button className="bg-green-300 hover:bg-green-400 text-green-800 text-xs font-bold py-2 px-1 rounded border-2 border-green-400">
-                💕 Love
-              </button>
-            </div>
-            <div className="text-xs text-center mt-3 text-gray-600">
-              Let me know if you use one so I can return the favor! 🥰
-            </div>
+            <ButtonsContent onSecretClick={handleSecretClick} />
           </Window>
 
           {/* Photo Gallery Window */}
           <Window title="📸 Memories" titleBarColor="bg-red-300">
-            <div className="grid grid-cols-2 gap-2">
-              {[1, 2, 3, 4].map((index) => (
-                <div
-                  key={index}
-                  className="aspect-square bg-gradient-to-br from-pink-200 to-purple-200 rounded border-2 border-pink-300 flex items-center justify-center text-2xl hover:scale-105 transition-transform cursor-pointer"
-                >
-                  {index === 1 && '💑'}
-                  {index === 2 && '🥰'}
-                  {index === 3 && '💕'}
-                  {index === 4 && '🌹'}
-                </div>
-              ))}
-            </div>
-            <div className="text-xs text-center mt-2 text-red-700 font-bold">
-              Our favorite moments together! 📷✨
-            </div>
+            <MemoriesContent />
           </Window>
 
           {/* Webrings Window */}
           <Window title="🌐 Webrings" titleBarColor="bg-teal-300">
-            <div className="text-center space-y-2">
-              <div className="bg-gradient-to-r from-pink-200 to-purple-200 p-2 rounded border">
-                <div className="text-xs font-bold text-teal-700">💖 Love Ring 💖</div>
-              </div>
-              <div className="bg-gradient-to-r from-blue-200 to-green-200 p-2 rounded border">
-                <div className="text-xs font-bold text-teal-700">🎵 Music Lovers 🎵</div>
-              </div>
-              <div className="text-xs text-teal-600">
-                Join our webrings! 🌟
-              </div>
-            </div>
+            <WebringsContent />
           </Window>
         </div>
       </div>
