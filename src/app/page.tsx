@@ -2,7 +2,7 @@
 
 import { useState, useEffect, memo, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, X, Minus, Square } from 'lucide-react';
+import { X, Minus, Square } from 'lucide-react';
 import Image from 'next/image';
 
 // Window component outside main component to prevent re-renders
@@ -91,6 +91,8 @@ const Window = memo(({
   );
 });
 
+Window.displayName = 'Window';
+
 // Stable Spotify component
 const SpotifyPlayer = memo(() => (
   <div className="bg-white/50 backdrop-blur-sm rounded-lg p-2">
@@ -107,6 +109,8 @@ const SpotifyPlayer = memo(() => (
     />
   </div>
 ));
+
+SpotifyPlayer.displayName = 'SpotifyPlayer';
 
 // Love Counter component isolated to prevent other components from re-rendering
 const LoveCounter = memo(({ timeElapsed }: {
