@@ -188,10 +188,6 @@ const UpdatesContent = memo(() => (
       <div className="text-purple-700 font-bold">[24/04/25] 🎉 Deco & Garbs</div>
       <div className="text-purple-600">Niver celebration!</div>
     </div>
-    <div>
-      <div className="text-green-700 font-bold">[02/06/25] 💕 Special Quote</div>
-      <div className="text-green-600">A beautiful moment together</div>
-    </div>
   </div>
 ));
 
@@ -229,7 +225,7 @@ const MemoriesContent = memo(() => (
 
 const SpecialPhotoContent = memo(() => (
   <div className="flex flex-col items-center">
-    <div className="relative w-full bg-gradient-to-br from-rose-100 to-pink-100 rounded-lg border-2 border-rose-200 overflow-hidden hover:scale-105 transition-transform cursor-pointer shadow-lg" style={{ height: '400px' }}>
+    <div className="relative w-full bg-gradient-to-br from-rose-100 to-pink-100 rounded-lg border-2 border-rose-200 overflow-hidden hover:scale-105 transition-transform cursor-pointer shadow-lg" style={{ height: '600px' }}>
       <Image
         src="/5.jpeg"
         alt="Special Memory"
