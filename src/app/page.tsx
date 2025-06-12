@@ -114,7 +114,7 @@ const LoveCounter = memo(({ timeElapsed }: {
 }) => (
   <div className="text-center">
     <div className="text-pink-700 font-semibold mb-6" style={{ fontFamily: 'Georgia, serif' }}>
-      Together Since Jan 1, 2025! 💕
+      Together Since Dec 29, 2024! 💕
     </div>
     
     {/* Large Digital Display */}
@@ -225,6 +225,29 @@ const MemoriesContent = memo(() => (
       Our sacred moments together! 📷✨
     </div>
   </>
+));
+
+const SpecialPhotoContent = memo(() => (
+  <div className="flex flex-col items-center">
+    <div className="relative w-full bg-gradient-to-br from-rose-100 to-pink-100 rounded-lg border-2 border-rose-200 overflow-hidden hover:scale-105 transition-transform cursor-pointer shadow-lg" style={{ height: '400px' }}>
+      <Image
+        src="/5.jpeg"
+        alt="Special Memory"
+        fill
+        className="object-cover rounded-lg"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+      <div className="absolute bottom-4 left-4 right-4">
+        <div className="text-sm font-medium text-white drop-shadow-lg text-center" style={{ fontFamily: 'Georgia, serif' }}>
+          💖 Our Special Moment 💖
+        </div>
+      </div>
+    </div>
+    <div className="text-xs text-center mt-3 text-rose-800 font-medium" style={{ fontFamily: 'Georgia, serif' }}>
+      A treasured memory! 🌹✨
+    </div>
+  </div>
 ));
 
 const WebringsContent = memo(() => (
@@ -633,9 +656,9 @@ export default function Home() {
     closed: boolean;
   }}>({});
 
-  // Calculate time since Jan 1, 2025
+  // Calculate time since Dec 29, 2024
   useEffect(() => {
-    const startDate = new Date('2025-01-01T00:00:00');
+    const startDate = new Date('2024-12-29T16:02:00');
     
     const updateTime = () => {
       const now = new Date();
@@ -918,6 +941,19 @@ export default function Home() {
             onClose={() => closeWindow('memories')}
           >
             <MemoriesContent />
+          </Window>
+
+          {/* Special Photo Window */}
+          <Window 
+            title="🌹 Special Moment" 
+            titleBarColor="bg-rose-300"
+            windowId="specialphoto"
+            windowState={windowStates.specialphoto}
+            onMinimize={() => minimizeWindow('specialphoto')}
+            onMaximize={() => maximizeWindow('specialphoto')}
+            onClose={() => closeWindow('specialphoto')}
+          >
+            <SpecialPhotoContent />
           </Window>
 
           {/* Cute Animals GIF Window */}
