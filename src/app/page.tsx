@@ -10,7 +10,7 @@ const Window = memo(({
   title, 
   children, 
   className = "", 
-  titleBarColor = "bg-green-200", 
+  titleBarColor = "bg-orange-200", 
   dragConstraints = true,
   windowId,
   windowState,
@@ -37,7 +37,7 @@ const Window = memo(({
 
   return (
     <motion.div 
-      className={`bg-gradient-to-b from-stone-50 to-green-50 border-2 border-green-300 rounded-2xl shadow-xl backdrop-blur-sm ${className} ${
+      className={`bg-gradient-to-b from-orange-50 to-blue-50 border-2 border-orange-300 rounded-2xl shadow-xl backdrop-blur-sm ${className} ${
         isMaximized ? 'fixed inset-4 z-40' : ''
       }`}
       drag={dragConstraints && !isMaximized}
@@ -56,9 +56,9 @@ const Window = memo(({
       }}
     >
       <div 
-        className={`${titleBarColor} px-4 py-3 flex items-center justify-between rounded-t-2xl border-b-2 border-green-300 cursor-move`}
+        className={`${titleBarColor} px-4 py-3 flex items-center justify-between rounded-t-2xl border-b-2 border-orange-300 cursor-move`}
       >
-        <span className="text-sm font-semibold text-green-900" style={{ fontFamily: 'Georgia, serif' }}>
+        <span className="text-sm font-semibold text-orange-900" style={{ fontFamily: 'Georgia, serif' }}>
           {title}
         </span>
         <div className="flex gap-2">
@@ -117,17 +117,17 @@ const LoveCounter = memo(({ timeElapsed }: {
   timeElapsed: { days: number; hours: number; minutes: number; seconds: number }
 }) => (
   <div className="text-center">
-    <div className="text-pink-700 font-semibold mb-6" style={{ fontFamily: 'Georgia, serif' }}>
-      Together Since Dec 29, 2024! 💕
+    <div className="text-orange-700 font-semibold mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+      Together Since Dec 29, 2024! 🧡🩵
     </div>
     
     {/* Large Digital Display */}
-    <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-6 border-2 border-pink-200 shadow-lg">
-      <div className="text-2xl font-mono font-bold text-pink-800 mb-3">
+    <div className="bg-gradient-to-br from-orange-50 to-blue-100 rounded-xl p-6 border-2 border-orange-200 shadow-lg">
+      <div className="text-2xl font-mono font-bold text-blue-800 mb-3">
         {String(timeElapsed.days).padStart(3, '0')} : {String(timeElapsed.hours).padStart(2, '0')} : {String(timeElapsed.minutes).padStart(2, '0')} : {String(timeElapsed.seconds).padStart(2, '0')}
       </div>
-      <div className="text-sm text-pink-600" style={{ fontFamily: 'Georgia, serif' }}>
-        <div className="font-semibold">Days : Hours : Minutes : Seconds</div>
+      <div className="text-sm text-orange-600" style={{ fontFamily: 'Georgia, serif' }}>
+        <div className="font-semibold">Days : Hours : Minutes : Seconds 🧡🩵</div>
       </div>
     </div>
   </div>
@@ -136,22 +136,22 @@ const LoveCounter = memo(({ timeElapsed }: {
 // Static components that don't need to re-render
 const NavigationContent = memo(() => (
   <div className="space-y-2 text-sm">
-    <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">💖 Love Gallery</div>
-    <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">🎵 Our Songs</div>
-    <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">📝 Love Notes</div>
-    <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">🎥 Memories</div>
-    <div className="text-pink-700 font-bold cursor-pointer hover:bg-pink-200 p-2 rounded">💌 About Us</div>
+    <div className="text-orange-700 font-bold cursor-pointer hover:bg-orange-200 p-2 rounded">🧡 Love Gallery 🩵</div>
+    <div className="text-blue-700 font-bold cursor-pointer hover:bg-blue-200 p-2 rounded">🎵 Our Songs 🧡🩵</div>
+    <div className="text-orange-700 font-bold cursor-pointer hover:bg-orange-200 p-2 rounded">📝 Love Notes 🩵</div>
+    <div className="text-blue-700 font-bold cursor-pointer hover:bg-blue-200 p-2 rounded">🎥 Memories 🧡</div>
+    <div className="text-orange-700 font-bold cursor-pointer hover:bg-orange-200 p-2 rounded">💌 About Us 🧡🩵</div>
   </div>
 ));
 
 const CliquesContent = memo(() => (
   <div className="text-center space-y-2">
-    <div className="text-6xl">🥰</div>
-    <div className="text-xs text-pink-700 font-bold">
-      Click me for surprises!
+    <div className="text-6xl">🧡🩵</div>
+    <div className="text-xs text-orange-700 font-bold">
+      Click me for surprises! 🧡🩵
     </div>
     <div className="flex justify-center space-x-1">
-      {['💖', '🌟', '✨', '💫', '🎀'].map((emoji, i) => (
+      {['🧡', '🩵', '🧡', '🩵', '🧡'].map((emoji, i) => (
         <span key={i} className="text-sm hover:scale-125 transition-transform cursor-pointer">
           {emoji}
         </span>
@@ -162,35 +162,35 @@ const CliquesContent = memo(() => (
 
 const WelcomeContent = memo(() => (
   <div className="text-center">
-    <div className="text-pink-700 font-bold mb-3" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-      PARA MINHA YASMIN 💖
+    <div className="text-orange-700 font-bold mb-3" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+      PARA MINHA YASMIN 🧡🩵
     </div>
-    <div className="text-sm text-pink-600 leading-relaxed mb-4 text-left">
+    <div className="text-sm text-blue-600 leading-relaxed mb-4 text-left">
       Hey Yasmin. Vc é a estetica da minha substancia, o coracao da minha party, 
       o motivo do meu storytelling. Vc acredita em mim e eu em voce. 
-      Obg JC por colocar voce na minha vida. Te amo
+      Obg JC por colocar voce na minha vida. Te amo 🧡🩵
     </div>
     <div className="flex justify-center mb-3">
-      <div className="w-20 h-20 bg-gradient-to-br from-pink-300 to-purple-300 rounded-full flex items-center justify-center text-3xl">
-        💑
+      <div className="w-20 h-20 bg-gradient-to-br from-orange-300 to-blue-300 rounded-full flex items-center justify-center text-3xl">
+        🧡🩵
       </div>
     </div>
-    <div className="text-xs text-pink-600">
-      This site is made with endless love! 
-      Every window tells part of our beautiful story! (◕‿◕)♡
+    <div className="text-xs text-orange-600">
+      This site is made with endless love! 🧡🩵
+      Every window tells part of our beautiful story! (◕‿◕)🧡🩵
     </div>
   </div>
 ));
 
 const UpdatesContent = memo(() => (
   <div className="space-y-3 text-xs">
-    <div className="border-b border-pink-300 pb-2">
-      <div className="text-pink-700 font-bold">[03/05/25] 🎬 Jairo's Birthday</div>
-      <div className="text-pink-600">Lord of the Rings at Yasmin's</div>
+    <div className="border-b border-orange-300 pb-2">
+      <div className="text-orange-700 font-bold">[03/05/25] 🎬 Jairo's Birthday 🧡</div>
+      <div className="text-blue-600">Lord of the Rings at Yasmin's 🩵</div>
     </div>
-    <div className="border-b border-pink-300 pb-2">
-      <div className="text-purple-700 font-bold">[24/04/25] 🎉 Deco & Garbs</div>
-      <div className="text-purple-600">Niver celebration!</div>
+    <div className="border-b border-blue-300 pb-2">
+      <div className="text-blue-700 font-bold">[24/04/25] 🎉 Deco & Garbs 🩵</div>
+      <div className="text-orange-600">Niver celebration! 🧡🩵</div>
     </div>
   </div>
 ));
@@ -201,7 +201,7 @@ const MemoriesContent = memo(() => (
       {[1, 2, 3].map((index) => (
         <div
           key={index}
-          className="relative aspect-square bg-gradient-to-br from-amber-100 to-yellow-100 rounded-lg border-2 border-amber-200 overflow-hidden hover:scale-105 transition-transform cursor-pointer shadow-lg"
+          className="relative aspect-square bg-gradient-to-br from-orange-100 to-blue-100 rounded-lg border-2 border-orange-200 overflow-hidden hover:scale-105 transition-transform cursor-pointer shadow-lg"
         >
           <Image
             src={`/${index}.jpeg`}
@@ -213,23 +213,23 @@ const MemoriesContent = memo(() => (
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           <div className="absolute bottom-2 left-2 right-2">
             <div className="text-xs font-medium text-white drop-shadow-lg" style={{ fontFamily: 'Georgia, serif' }}>
-              {index === 1 && '🌻 Our first adventure'}
-              {index === 2 && '💕 Sweet moments'}
-              {index === 3 && '✨ Beautiful memories'}
+              {index === 1 && '🧡 Our first adventure 🩵'}
+              {index === 2 && '🩵 Sweet moments 🧡'}
+              {index === 3 && '🧡🩵 Beautiful memories'}
             </div>
           </div>
         </div>
       ))}
     </div>
-    <div className="text-xs text-center mt-3 text-amber-800 font-medium" style={{ fontFamily: 'Georgia, serif' }}>
-      Our sacred moments together! 📷✨
+    <div className="text-xs text-center mt-3 text-orange-800 font-medium" style={{ fontFamily: 'Georgia, serif' }}>
+      Our sacred moments together! 🧡📷🩵
     </div>
   </>
 ));
 
 const SpecialPhotoContent = memo(() => (
   <div className="flex flex-col items-center">
-    <div className="relative w-full bg-gradient-to-br from-rose-100 to-pink-100 rounded-lg border-2 border-rose-200 overflow-hidden hover:scale-105 transition-transform cursor-pointer shadow-lg" style={{ height: '600px' }}>
+    <div className="relative w-full bg-gradient-to-br from-orange-100 to-blue-100 rounded-lg border-2 border-orange-200 overflow-hidden hover:scale-105 transition-transform cursor-pointer shadow-lg" style={{ height: '600px' }}>
       <Image
         src="/5.jpeg"
         alt="Special Memory"
@@ -240,12 +240,12 @@ const SpecialPhotoContent = memo(() => (
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
       <div className="absolute bottom-4 left-4 right-4">
         <div className="text-sm font-medium text-white drop-shadow-lg text-center" style={{ fontFamily: 'Georgia, serif' }}>
-          💖 Our Special Moment 💖
+          🧡 Our Special Moment 🩵
         </div>
       </div>
     </div>
-    <div className="text-xs text-center mt-3 text-rose-800 font-medium" style={{ fontFamily: 'Georgia, serif' }}>
-      A treasured memory! 🌹✨
+    <div className="text-xs text-center mt-3 text-orange-800 font-medium" style={{ fontFamily: 'Georgia, serif' }}>
+      A treasured memory! 🧡🩵
     </div>
   </div>
 ));
@@ -269,41 +269,41 @@ const ButtonsContent = memo(({ onSecretClick }: { onSecretClick: () => void }) =
     <div className="grid grid-cols-2 gap-2">
       <button 
         onClick={onSecretClick}
-        className="bg-pink-300 hover:bg-pink-400 text-pink-800 text-xs font-bold py-2 px-1 rounded border-2 border-pink-400"
+        className="bg-orange-300 hover:bg-orange-400 text-orange-800 text-xs font-bold py-2 px-1 rounded border-2 border-orange-400"
       >
-        💖 Secret
-      </button>
-      <button className="bg-purple-300 hover:bg-purple-400 text-purple-800 text-xs font-bold py-2 px-1 rounded border-2 border-purple-400">
-        🌟 Magic
+        🧡 Secret
       </button>
       <button className="bg-blue-300 hover:bg-blue-400 text-blue-800 text-xs font-bold py-2 px-1 rounded border-2 border-blue-400">
-        ✨ Dreams
+        🩵 Magic
       </button>
-      <button className="bg-green-300 hover:bg-green-400 text-green-800 text-xs font-bold py-2 px-1 rounded border-2 border-green-400">
-        💕 Love
+      <button className="bg-orange-300 hover:bg-orange-400 text-orange-800 text-xs font-bold py-2 px-1 rounded border-2 border-orange-400">
+        🧡 Dreams
+      </button>
+      <button className="bg-blue-300 hover:bg-blue-400 text-blue-800 text-xs font-bold py-2 px-1 rounded border-2 border-blue-400">
+        🩵 Love
       </button>
     </div>
-    <div className="text-xs text-center mt-3 text-gray-600">
-      Let me know if you use one so I can return the favor! 🥰
+    <div className="text-xs text-center mt-3 text-orange-600">
+      Let me know if you use one so I can return the favor! 🧡🩵
     </div>
   </>
 ));
 
 const LoveNoteContent = memo(() => (
   <div className="text-center">
-    <div className="text-sm text-purple-700 leading-relaxed mb-3" style={{ fontFamily: 'Georgia, serif' }}>
-    Yasmin: "um dia que eu te amar muitooo eu vou gostar um pouquinho mais do jordan peterson." 💕
+    <div className="text-sm text-blue-700 leading-relaxed mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+    Yasmin: "um dia que eu te amar muitooo eu vou gostar um pouquinho mais do jordan peterson." 🧡🩵
     </div>
-    <div className="border-t border-pink-200 pt-3 mt-3">
-      <div className="text-xs text-pink-700 leading-relaxed mb-2" style={{ fontFamily: 'Georgia, serif' }}>
-        [02/06/25] 
+    <div className="border-t border-orange-200 pt-3 mt-3">
+      <div className="text-xs text-orange-700 leading-relaxed mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+        [02/06/25] 🧡🩵
       </div>
     </div>
-    <div className="text-right text-purple-600 text-xs font-bold" style={{ fontFamily: 'Georgia, serif' }}>
-      - Forever Yours 💖
+    <div className="text-right text-blue-600 text-xs font-bold" style={{ fontFamily: 'Georgia, serif' }}>
+      - Forever Yours 🧡🩵
     </div>
     <div className="flex justify-center mt-3 space-x-2">
-      {['💕', '🌹', '✨', '💖', '🌟'].map((emoji, i) => (
+      {['🧡', '🩵', '🧡', '🩵', '🧡'].map((emoji, i) => (
         <motion.span
           key={i}
           className="text-lg"
@@ -327,7 +327,7 @@ const LoveNoteContent = memo(() => (
 // GIF Window Components
 const HeartGifContent = memo(() => (
   <div className="flex flex-col items-center space-y-2">
-    <div className="w-full h-32 bg-gradient-to-r from-pink-200 to-purple-200 rounded-lg flex items-center justify-center overflow-hidden">
+    <div className="w-full h-32 bg-gradient-to-r from-orange-200 to-blue-200 rounded-lg flex items-center justify-center overflow-hidden">
       <motion.div
         animate={{ 
           scale: [1, 1.2, 1],
@@ -340,18 +340,18 @@ const HeartGifContent = memo(() => (
         }}
         className="text-6xl"
       >
-        💖
+        🧡🩵
       </motion.div>
     </div>
-    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-pink-700 text-xs text-center">
-      My heart beats for you! 💕
+    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-orange-700 text-xs text-center">
+      My heart beats for you! 🧡🩵
     </p>
   </div>
 ));
 
 const SparkleGifContent = memo(() => (
   <div className="flex flex-col items-center space-y-2">
-    <div className="w-full h-32 bg-gradient-to-r from-yellow-100 to-pink-100 rounded-lg flex items-center justify-center relative overflow-hidden">
+    <div className="w-full h-32 bg-gradient-to-r from-orange-100 to-blue-100 rounded-lg flex items-center justify-center relative overflow-hidden">
       {[...Array(8)].map((_, i) => (
         <motion.div
           key={i}
@@ -373,19 +373,19 @@ const SparkleGifContent = memo(() => (
             top: `${Math.random() * 80 + 10}%`
           }}
         >
-          ✨
+          {i % 2 === 0 ? '🧡' : '🩵'}
         </motion.div>
       ))}
     </div>
-    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-pink-700 text-xs text-center">
-      You make my world sparkle! ✨
+    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-orange-700 text-xs text-center">
+      You make my world sparkle! 🧡🩵
     </p>
   </div>
 ));
 
 const CuteAnimalsContent = memo(() => (
   <div className="flex flex-col items-center space-y-2">
-    <div className="w-full h-32 bg-gradient-to-r from-green-100 to-blue-100 rounded-lg flex items-center justify-center">
+    <div className="w-full h-32 bg-gradient-to-r from-orange-100 to-blue-100 rounded-lg flex items-center justify-center">
       <motion.div
         animate={{ 
           x: [-20, 20, -20],
@@ -398,18 +398,18 @@ const CuteAnimalsContent = memo(() => (
         }}
         className="text-4xl"
       >
-        🐰💕🐻
+        🧡🩵🧡
       </motion.div>
     </div>
-    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-pink-700 text-xs text-center">
-      Cute like us! 🥰
+    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-orange-700 text-xs text-center">
+      Cute like us! 🧡🩵
     </p>
   </div>
 ));
 
 const FloatingHeartsContent = memo(() => (
   <div className="flex flex-col items-center space-y-2">
-    <div className="w-full h-32 bg-gradient-to-r from-red-100 to-pink-100 rounded-lg flex items-center justify-center relative overflow-hidden">
+    <div className="w-full h-32 bg-gradient-to-r from-orange-100 to-blue-100 rounded-lg flex items-center justify-center relative overflow-hidden">
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
@@ -429,12 +429,12 @@ const FloatingHeartsContent = memo(() => (
             left: `${15 + i * 12}%`,
           }}
         >
-          💗
+          {i % 2 === 0 ? '🧡' : '🩵'}
         </motion.div>
       ))}
     </div>
-    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-pink-700 text-xs text-center">
-      Hearts everywhere! 💗
+    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-orange-700 text-xs text-center">
+      Hearts everywhere! 🧡🩵
     </p>
   </div>
 ));
@@ -453,8 +453,8 @@ const RomanticGif1 = memo(() => (
         allowFullScreen
       />
     </div>
-    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-pink-700 text-xs text-center">
-      💕 Romantic vibes! 💕
+    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-orange-700 text-xs text-center">
+      🧡 Romantic vibes! 🩵
     </p>
   </div>
 ));
@@ -472,8 +472,8 @@ const RomanticGif2 = memo(() => (
         allowFullScreen
       />
     </div>
-    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-pink-700 text-xs text-center">
-      🌅 Before Sunrise feels! 🌅
+    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-blue-700 text-xs text-center">
+      🩵 Before Sunrise feels! 🧡
     </p>
   </div>
 ));
@@ -491,8 +491,8 @@ const RomanticGif3 = memo(() => (
         allowFullScreen
       />
     </div>
-    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-pink-700 text-xs text-center">
-      💫 Dreamy romance! 💫
+    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-orange-700 text-xs text-center">
+      🧡 Dreamy romance! 🩵
     </p>
   </div>
 ));
@@ -510,8 +510,8 @@ const RomanticGif4 = memo(() => (
         allowFullScreen
       />
     </div>
-    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-pink-700 text-xs text-center">
-      💖 Classic love! 💖
+    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-blue-700 text-xs text-center">
+      🩵 Classic love! 🧡
     </p>
   </div>
 ));
@@ -529,8 +529,8 @@ const RomanticGif5 = memo(() => (
         allowFullScreen
       />
     </div>
-    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-pink-700 text-xs text-center">
-      ⚔️ Epic romance! ⚔️
+    <p style={{ fontFamily: 'Comic Sans MS, cursive' }} className="text-orange-700 text-xs text-center">
+      🧡 Epic romance! 🩵
     </p>
   </div>
 ));
@@ -538,50 +538,50 @@ const RomanticGif5 = memo(() => (
 // Jay's Compliments to Ysa
 const JayComplimentsContent = memo(() => (
   <div className="space-y-2 text-xs max-h-60 overflow-y-auto">
-    <div className="text-pink-800 font-semibold mb-2" style={{ fontFamily: 'Georgia, serif' }}>
-      Jay's Sweet Words 💕
+    <div className="text-orange-800 font-semibold mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+      Jay's Sweet Words 🧡🩵
     </div>
     <div className="space-y-1 text-xs">
-      <div className="text-pink-700">Often calls her: "linda," "minha princesa," "gatinha," "fofinha," "anja," "extro yasmin," "florzinha," "my cat."</div>
-      <div className="border-b border-pink-200 pb-1">
-        <div className="text-pink-600 font-medium">[07/04/25]:</div>
-        <div className="text-pink-700">"linda" (about her fixing her necklace)</div>
+      <div className="text-orange-700">Often calls her: "linda," "minha princesa," "gatinha," "fofinha," "anja," "extro yasmin," "florzinha," "my cat."</div>
+      <div className="border-b border-orange-200 pb-1">
+        <div className="text-orange-600 font-medium">[07/04/25]:</div>
+        <div className="text-orange-700">"linda" (about her fixing her necklace)</div>
       </div>
-      <div className="border-b border-pink-200 pb-1">
-        <div className="text-pink-600 font-medium">[09/04/25]:</div>
-        <div className="text-pink-700">"manda mto linda / tu é a mais pika / semideusa no mundo do percy jackson / anja / foda / deu um jeito"</div>
+      <div className="border-b border-orange-200 pb-1">
+        <div className="text-orange-600 font-medium">[09/04/25]:</div>
+        <div className="text-orange-700">"manda mto linda / tu é a mais pika / semideusa no mundo do percy jackson / anja / foda / deu um jeito"</div>
       </div>
-      <div className="border-b border-pink-200 pb-1">
-        <div className="text-pink-600 font-medium">[25/04/25]:</div>
-        <div className="text-pink-700">"tu é inteligente / e conversa com Deus"</div>
+      <div className="border-b border-orange-200 pb-1">
+        <div className="text-orange-600 font-medium">[25/04/25]:</div>
+        <div className="text-orange-700">"tu é inteligente / e conversa com Deus"</div>
       </div>
-      <div className="border-b border-pink-200 pb-1">
-        <div className="text-pink-600 font-medium">[05/05/25]:</div>
-        <div className="text-pink-700">"ja tem uma cliente aq / uma gata / bem linda" + "pernuda" (after gym pic)</div>
+      <div className="border-b border-orange-200 pb-1">
+        <div className="text-orange-600 font-medium">[05/05/25]:</div>
+        <div className="text-orange-700">"ja tem uma cliente aq / uma gata / bem linda" + "pernuda" (after gym pic)</div>
       </div>
-      <div className="border-b border-pink-200 pb-1">
-        <div className="text-pink-600 font-medium">[06/05/25]:</div>
-        <div className="text-pink-700">"super smart / so falta a street wise / e vai ser unstoppable"</div>
+      <div className="border-b border-orange-200 pb-1">
+        <div className="text-orange-600 font-medium">[06/05/25]:</div>
+        <div className="text-orange-700">"super smart / so falta a street wise / e vai ser unstoppable"</div>
       </div>
-      <div className="border-b border-pink-200 pb-1">
-        <div className="text-pink-600 font-medium">[19/05/25]:</div>
-        <div className="text-pink-700">"a minha gatinhaa" + "vao te chamar pra atuar em serie da netflix / mto gata"</div>
+      <div className="border-b border-orange-200 pb-1">
+        <div className="text-orange-600 font-medium">[19/05/25]:</div>
+        <div className="text-orange-700">"a minha gatinhaa" + "vao te chamar pra atuar em serie da netflix / mto gata"</div>
       </div>
-      <div className="border-b border-pink-200 pb-1">
-        <div className="text-pink-600 font-medium">[02/06/25]:</div>
-        <div className="text-pink-700">"bonita" (after she sends a video)</div>
+      <div className="border-b border-orange-200 pb-1">
+        <div className="text-orange-600 font-medium">[02/06/25]:</div>
+        <div className="text-orange-700">"bonita" (after she sends a video)</div>
       </div>
-      <div className="border-b border-pink-200 pb-1">
-        <div className="text-pink-600 font-medium">[03/06/25]:</div>
-        <div className="text-pink-700">"estorou" (complimenting her good grade)</div>
+      <div className="border-b border-orange-200 pb-1">
+        <div className="text-orange-600 font-medium">[03/06/25]:</div>
+        <div className="text-orange-700">"estorou" (complimenting her good grade)</div>
       </div>
-      <div className="border-b border-pink-200 pb-1">
-        <div className="text-pink-600 font-medium">[06/06/25]:</div>
-        <div className="text-pink-700">"BEAUTIFUL" (about her gym pic)</div>
+      <div className="border-b border-orange-200 pb-1">
+        <div className="text-orange-600 font-medium">[06/06/25]:</div>
+        <div className="text-orange-700">"BEAUTIFUL" (about her gym pic)</div>
       </div>
       <div>
-        <div className="text-pink-600 font-medium">[27/05/25]:</div>
-        <div className="text-pink-700">"tu é mais bonita / e inteligente / so falta o estilo do dinheiro"</div>
+        <div className="text-orange-600 font-medium">[27/05/25]:</div>
+        <div className="text-orange-700">"tu é mais bonita / e inteligente / so falta o estilo do dinheiro"</div>
       </div>
     </div>
   </div>
@@ -590,50 +590,50 @@ const JayComplimentsContent = memo(() => (
 // Ysa's Compliments to Jay  
 const YsaComplimentsContent = memo(() => (
   <div className="space-y-2 text-xs max-h-60 overflow-y-auto">
-    <div className="text-purple-800 font-semibold mb-2" style={{ fontFamily: 'Georgia, serif' }}>
-      Ysa's Sweet Words 💖
+    <div className="text-blue-800 font-semibold mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+      Ysa's Sweet Words 🩵🧡
     </div>
     <div className="space-y-1 text-xs">
-      <div className="text-purple-700">Often calls him: "meu bb," "amor," "jairinho," "jay bb," "nenem," "meu amor," "babyboy," "gatão," "my lord."</div>
-      <div className="border-b border-purple-200 pb-1">
-        <div className="text-purple-600 font-medium">[07/04/25]:</div>
-        <div className="text-purple-700">"vou valorizar acho fofo que te inspira / ambição nesse nivel, de mudar o mundo, é muito legal." + "te amo jairinho."</div>
+      <div className="text-blue-700">Often calls him: "meu bb," "amor," "jairinho," "jay bb," "nenem," "meu amor," "babyboy," "gatão," "my lord."</div>
+      <div className="border-b border-blue-200 pb-1">
+        <div className="text-blue-600 font-medium">[07/04/25]:</div>
+        <div className="text-blue-700">"vou valorizar acho fofo que te inspira / ambição nesse nivel, de mudar o mundo, é muito legal." + "te amo jairinho."</div>
       </div>
-      <div className="border-b border-purple-200 pb-1">
-        <div className="text-purple-600 font-medium">[08/04/25]:</div>
-        <div className="text-purple-700">"cara tua vida ta muito boa pode falar." + "energia" (after his PR)</div>
+      <div className="border-b border-blue-200 pb-1">
+        <div className="text-blue-600 font-medium">[08/04/25]:</div>
+        <div className="text-blue-700">"cara tua vida ta muito boa pode falar." + "energia" (after his PR)</div>
       </div>
-      <div className="border-b border-purple-200 pb-1">
-        <div className="text-purple-600 font-medium">[11/04/25]:</div>
-        <div className="text-purple-700">"vc é uma ótima influencia pra mim nesse sentido." + "super chad bb"</div>
+      <div className="border-b border-blue-200 pb-1">
+        <div className="text-blue-600 font-medium">[11/04/25]:</div>
+        <div className="text-blue-700">"vc é uma ótima influencia pra mim nesse sentido." + "super chad bb"</div>
       </div>
-      <div className="border-b border-purple-200 pb-1">
-        <div className="text-purple-600 font-medium">[13/04/25]:</div>
-        <div className="text-purple-700">"vc é o melhor namo do mundo."</div>
+      <div className="border-b border-blue-200 pb-1">
+        <div className="text-blue-600 font-medium">[13/04/25]:</div>
+        <div className="text-blue-700">"vc é o melhor namo do mundo."</div>
       </div>
-      <div className="border-b border-purple-200 pb-1">
-        <div className="text-purple-600 font-medium">[23/04/25]:</div>
-        <div className="text-purple-700">"to apx" + "eu ia esperar a gnt ter post MAS queria organizar o insta"</div>
+      <div className="border-b border-blue-200 pb-1">
+        <div className="text-blue-600 font-medium">[23/04/25]:</div>
+        <div className="text-blue-700">"to apx" + "eu ia esperar a gnt ter post MAS queria organizar o insta"</div>
       </div>
-      <div className="border-b border-purple-200 pb-1">
-        <div className="text-purple-600 font-medium">[28/04/25]:</div>
-        <div className="text-purple-700">"vai arrasar bebe" (about his MBL meeting)</div>
+      <div className="border-b border-blue-200 pb-1">
+        <div className="text-blue-600 font-medium">[28/04/25]:</div>
+        <div className="text-blue-700">"vai arrasar bebe" (about his MBL meeting)</div>
       </div>
-      <div className="border-b border-purple-200 pb-1">
-        <div className="text-purple-600 font-medium">[03/05/25]:</div>
-        <div className="text-purple-700">"feliz aniversário! to muito muito feliz cada vez mais pq eu te amo."</div>
+      <div className="border-b border-blue-200 pb-1">
+        <div className="text-blue-600 font-medium">[03/05/25]:</div>
+        <div className="text-blue-700">"feliz aniversário! to muito muito feliz cada vez mais pq eu te amo."</div>
       </div>
-      <div className="border-b border-purple-200 pb-1">
-        <div className="text-purple-600 font-medium">[06/05/25]:</div>
-        <div className="text-purple-700">"parabens bb to bem orgulhosa / vc faz as coisas acontecer."</div>
+      <div className="border-b border-blue-200 pb-1">
+        <div className="text-blue-600 font-medium">[06/05/25]:</div>
+        <div className="text-blue-700">"parabens bb to bem orgulhosa / vc faz as coisas acontecer."</div>
       </div>
-      <div className="border-b border-purple-200 pb-1">
-        <div className="text-purple-600 font-medium">[02/06/25]:</div>
-        <div className="text-purple-700">"corajoso amor / e gostoso" (about his pool video)</div>
+      <div className="border-b border-blue-200 pb-1">
+        <div className="text-blue-600 font-medium">[02/06/25]:</div>
+        <div className="text-blue-700">"corajoso amor / e gostoso" (about his pool video)</div>
       </div>
       <div>
-        <div className="text-purple-600 font-medium">[10/06/25]:</div>
-        <div className="text-purple-700">"eu chamo assim pq eu te amo" + "é pra mostrar que eu tô gostosa"</div>
+        <div className="text-blue-600 font-medium">[10/06/25]:</div>
+        <div className="text-blue-700">"eu chamo assim pq eu te amo" + "é pra mostrar que eu tô gostosa"</div>
       </div>
     </div>
   </div>
@@ -724,7 +724,7 @@ export default function Home() {
     <div 
       className="min-h-screen p-4"
       style={{
-        background: 'linear-gradient(135deg, #fce4ec 0%, #f8bbd9 50%, #f48fb1 100%)',
+        background: 'linear-gradient(135deg, #fed7aa 0%, #93c5fd 50%, #fb923c 100%)',
         backgroundSize: 'cover',
         backgroundAttachment: 'fixed'
       }}
@@ -732,15 +732,15 @@ export default function Home() {
       
       {/* Header Banner */}
       <div className="text-center mb-6">
-        <div className="bg-gradient-to-r from-green-100 via-blue-100 to-amber-100 p-6 rounded-2xl border-2 border-green-200 shadow-2xl backdrop-blur-sm">
+        <div className="bg-gradient-to-r from-orange-100 via-blue-100 to-orange-100 p-6 rounded-2xl border-2 border-orange-200 shadow-2xl backdrop-blur-sm">
           <h1 
-            className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-700 via-blue-700 to-amber-700 mb-2"
+            className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-blue-700 to-orange-700 mb-2"
             style={{ fontFamily: 'Georgia, serif' }}
           >
-            🌿Jay Loves Ysa 🌿
+            🧡Jay Loves Ysa🩵
           </h1>
-          <p className="text-green-800 text-lg font-medium" style={{ fontFamily: 'Georgia, serif' }}>
-            🌱 My Arwen, My Sally, My Céline, My Buttercup, My Leia, My Rose. My Mary Jane🌱
+          <p className="text-orange-800 text-lg font-medium" style={{ fontFamily: 'Georgia, serif' }}>
+            🧡🩵 My Arwen, My Sally, My Céline, My Buttercup, My Leia, My Rose. My Mary Jane 🩵🧡
           </p>
         </div>
       </div>
@@ -778,8 +778,8 @@ export default function Home() {
 
           {/* Real GIF Window 1 */}
           <Window 
-            title="🌹 Romantic Vibes" 
-            titleBarColor="bg-rose-200"
+            title="🧡 Romantic Vibes 🩵" 
+            titleBarColor="bg-orange-200"
             windowId="gif1"
             windowState={windowStates.gif1}
             onMinimize={() => minimizeWindow('gif1')}
@@ -791,8 +791,8 @@ export default function Home() {
 
           {/* Real GIF Window 5 - LOTR */}
           <Window 
-            title="🍃 Epic Romance" 
-            titleBarColor="bg-emerald-200"
+            title="🩵 Epic Romance 🧡" 
+            titleBarColor="bg-blue-200"
             windowId="gif5"
             windowState={windowStates.gif5}
             onMinimize={() => minimizeWindow('gif5')}
@@ -804,8 +804,8 @@ export default function Home() {
 
           {/* Jay's Compliments Window */}
           <Window 
-            title="💕 Jay to Ysa" 
-            titleBarColor="bg-pink-300"
+            title="🧡 Jay to Ysa 🩵" 
+            titleBarColor="bg-orange-200"
             windowId="jaycompliments"
             windowState={windowStates.jaycompliments}
             onMinimize={() => minimizeWindow('jaycompliments')}
@@ -820,8 +820,8 @@ export default function Home() {
         <div className="space-y-4">
           {/* Welcome Window */}
           <Window 
-            title="🌻 Welcome" 
-            titleBarColor="bg-amber-200"
+            title="🧡 Welcome 🩵" 
+            titleBarColor="bg-orange-200"
             windowId="welcome"
             windowState={windowStates.welcome}
             onMinimize={() => minimizeWindow('welcome')}
@@ -833,8 +833,8 @@ export default function Home() {
 
           {/* Spotify Playlist Window */}
           <Window 
-            title="🎵 Our Nature Playlist" 
-            titleBarColor="bg-green-300"
+            title="🧡 Our Love Playlist 🩵" 
+            titleBarColor="bg-blue-200"
             windowId="spotify"
             windowState={windowStates.spotify}
             onMinimize={() => minimizeWindow('spotify')}
@@ -843,16 +843,16 @@ export default function Home() {
           >
             <div className="text-center">
               <SpotifyPlayer />
-              <div className="text-xs text-green-800 mt-2 font-medium" style={{ fontFamily: 'Georgia, serif' }}>
-                🎶 Songs that remind me of you! 🎶
+              <div className="text-xs text-orange-800 mt-2 font-medium" style={{ fontFamily: 'Georgia, serif' }}>
+                🧡 Songs that remind me of you! 🩵
               </div>
             </div>
           </Window>
 
           {/* Love Note Window */}
           <Window 
-            title="🌾 Love Note" 
-            titleBarColor="bg-stone-200"
+            title="🧡 Love Note 🩵" 
+            titleBarColor="bg-orange-200"
             windowId="lovenote"
             windowState={windowStates.lovenote}
             onMinimize={() => minimizeWindow('lovenote')}
@@ -864,8 +864,8 @@ export default function Home() {
 
           {/* Sparkle GIF Window */}
           <Window 
-            title="✨ Golden Hour" 
-            titleBarColor="bg-yellow-200"
+            title="🧡 Golden Hour 🩵" 
+            titleBarColor="bg-orange-200"
             windowId="sparklegif"
             windowState={windowStates.sparklegif}
             onMinimize={() => minimizeWindow('sparklegif')}
@@ -877,8 +877,8 @@ export default function Home() {
 
           {/* Real GIF Window 2 */}
           <Window 
-            title="🌅 Before Sunrise" 
-            titleBarColor="bg-amber-200"
+            title="🩵 Before Sunrise 🧡" 
+            titleBarColor="bg-blue-200"
             windowId="gif2"
             windowState={windowStates.gif2}
             onMinimize={() => minimizeWindow('gif2')}
@@ -890,8 +890,8 @@ export default function Home() {
 
           {/* Real GIF Window 3 */}
           <Window 
-            title="🌙 Dreamy Romance" 
-            titleBarColor="bg-sky-200"
+            title="🧡 Dreamy Romance 🩵" 
+            titleBarColor="bg-orange-200"
             windowId="gif3"
             windowState={windowStates.gif3}
             onMinimize={() => minimizeWindow('gif3')}
@@ -906,8 +906,8 @@ export default function Home() {
         <div className="space-y-4">
           {/* Updates Window */}
           <Window 
-            title="📝 Garden Journal" 
-            titleBarColor="bg-yellow-200"
+            title="🧡 Journal 🩵" 
+            titleBarColor="bg-orange-200"
             windowId="updates"
             windowState={windowStates.updates}
             onMinimize={() => minimizeWindow('updates')}
@@ -919,8 +919,8 @@ export default function Home() {
 
           {/* Buttons Window */}
           <Window 
-            title="🌟 Nature Badges" 
-            titleBarColor="bg-orange-200"
+            title="🧡 Love Badges 🩵" 
+            titleBarColor="bg-blue-200"
             windowId="buttons"
             windowState={windowStates.buttons}
             onMinimize={() => minimizeWindow('buttons')}
@@ -932,8 +932,8 @@ export default function Home() {
 
           {/* Photo Gallery Window */}
           <Window 
-            title="📸 Sacred Memories" 
-            titleBarColor="bg-slate-200"
+            title="🧡 Sacred Memories 🩵" 
+            titleBarColor="bg-orange-200"
             windowId="memories"
             windowState={windowStates.memories}
             onMinimize={() => minimizeWindow('memories')}
@@ -945,8 +945,8 @@ export default function Home() {
 
           {/* Special Photo Window */}
           <Window 
-            title="🌹 Special Moment" 
-            titleBarColor="bg-rose-300"
+            title="🧡 Special Moment 🩵" 
+            titleBarColor="bg-blue-200"
             windowId="specialphoto"
             windowState={windowStates.specialphoto}
             onMinimize={() => minimizeWindow('specialphoto')}
@@ -958,8 +958,8 @@ export default function Home() {
 
           {/* Cute Animals GIF Window */}
           <Window 
-            title="🐰 Forest Friends" 
-            titleBarColor="bg-green-200"
+            title="🧡 Love Friends 🩵" 
+            titleBarColor="bg-orange-200"
             windowId="animalsgif"
             windowState={windowStates.animalsgif}
             onMinimize={() => minimizeWindow('animalsgif')}
@@ -971,8 +971,8 @@ export default function Home() {
 
           {/* Floating Hearts GIF Window */}
           <Window 
-            title="🌸 Gentle Hearts" 
-            titleBarColor="bg-pink-200"
+            title="🧡 Gentle Hearts 🩵" 
+            titleBarColor="bg-blue-200"
             windowId="heartsfloat"
             windowState={windowStates.heartsfloat}
             onMinimize={() => minimizeWindow('heartsfloat')}
@@ -984,8 +984,8 @@ export default function Home() {
 
           {/* Real GIF Window 4 */}
           <Window 
-            title="🌷 Classic Love" 
-            titleBarColor="bg-rose-200"
+            title="🧡 Classic Love 🩵" 
+            titleBarColor="bg-orange-200"
             windowId="gif4"
             windowState={windowStates.gif4}
             onMinimize={() => minimizeWindow('gif4')}
@@ -997,8 +997,8 @@ export default function Home() {
 
           {/* Ysa's Compliments Window */}
           <Window 
-            title="💖 Ysa to Jay" 
-            titleBarColor="bg-purple-300"
+            title="🩵 Ysa to Jay 🧡" 
+            titleBarColor="bg-blue-200"
             windowId="ysacompliments"
             windowState={windowStates.ysacompliments}
             onMinimize={() => minimizeWindow('ysacompliments')}
@@ -1010,10 +1010,10 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Floating Nature Elements */}
+      {/* Floating Love Elements */}
       {[...Array(12)].map((_, i) => {
-        const elements = ['🌿', '🍃', '🌱', '🌸', '🦋', '✨', '🕊️', '🌾', '🌻', '🕯️', '🪶', '🌙'];
-        const colors = ['text-green-300', 'text-blue-300', 'text-amber-300', 'text-rose-300', 'text-stone-400', 'text-slate-300'];
+        const elements = ['🧡', '🩵', '🧡', '🩵', '🧡', '🩵', '🧡', '🩵', '🧡', '🩵', '🧡', '🩵'];
+        const colors = ['text-orange-300', 'text-blue-300', 'text-orange-300', 'text-blue-300', 'text-orange-400', 'text-blue-400'];
         return (
           <motion.div
             key={i}
@@ -1047,18 +1047,18 @@ export default function Home() {
           animate={{ opacity: 1 }}
           onClick={() => setShowSecret(false)}
         >
-          <Window title="🌟 Nature's Secret!" titleBarColor="bg-green-300" className="max-w-md mx-4">
+          <Window title="🧡 Love's Secret! 🩵" titleBarColor="bg-orange-300" className="max-w-md mx-4">
             <div className="text-center">
-              <div className="text-4xl mb-4">🌿</div>
-              <div className="text-green-800 font-bold mb-3" style={{ fontFamily: 'Georgia, serif' }}>
-                You found nature's hidden message! 
+              <div className="text-4xl mb-4">🧡🩵</div>
+              <div className="text-orange-800 font-bold mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+                You found love's hidden message! 🧡🩵
               </div>
-              <div className="text-sm text-green-700 leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
-                Just like how you nurture growth in my heart, 
-                you discovered this secret garden. You are my eternal spring! 🌸
+              <div className="text-sm text-blue-700 leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
+                Just like how you fill my heart with warmth and happiness, 
+                you discovered this secret treasure. You are my everything! 🧡🩵
               </div>
               <div className="flex justify-center space-x-2 my-4">
-                {['🌸', '🦋', '🌿', '✨', '🕊️'].map((emoji, i) => (
+                {['🧡', '🩵', '🧡', '🩵', '🧡'].map((emoji, i) => (
                   <motion.span
                     key={i}
                     className="text-xl"
@@ -1078,10 +1078,10 @@ export default function Home() {
               </div>
               <button
                 onClick={() => setShowSecret(false)}
-                className="mt-2 bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full font-medium text-sm shadow-lg transition-colors"
+                className="mt-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full font-medium text-sm shadow-lg transition-colors"
                 style={{ fontFamily: 'Georgia, serif' }}
               >
-                Close 🌿
+                Close 🧡🩵
               </button>
             </div>
           </Window>
